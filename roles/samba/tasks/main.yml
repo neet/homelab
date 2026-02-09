@@ -1,0 +1,43 @@
+---
+- name: Sambaをインストール
+  ansible.builtin.apt:
+    name: samba
+    state: present
+    update_cache: yes
+
+- name: ファイアウォールでSambaを許可
+  community.general.ufw:
+    rule: allow
+    name: Samba
+
+- name: Samba設定ファイルをバックアップ
+  ansible.builtin.copy:
+    src: /etc/samba/smb.conf
+    dest: /etc/samba/smb.conf.backup
+    remote_src: yes
+    force: no
+
+- name: Samba共有設定を追加
+  ansible.builtin.blockinfile:
+    path: /etc/samba/smb.conf
+    block: |
+      [{{ samba_share_name }}]
+          comment = {{ samba_share_comment }}
+          path = {{ samba_share_path }}
+          read only = no
+          browsable = yes
+          vfs objects = catia fruit streams_xattr
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - {{ samba_share_name }}"
+  notify: restart samba
+
+- name: Sambaユーザーが存在するか確認
+  ansible.builtin.shell: pdbedit -L | grep -q "^{{ samba_user }}:"
+  register: samba_user_check
+  failed_when: false
+  changed_when: false
+
+- name: Sambaユーザーを作成
+  ansible.builtin.shell: |
+    (echo "{{ samba_password }}"; echo "{{ samba_password }}") | smbpasswd -a {{ samba_user }} -s
+  when: samba_user_check.rc != 0
+  no_log: true

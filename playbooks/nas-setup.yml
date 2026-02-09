@@ -1,0 +1,23 @@
+---
+- name: NASサーバーのセットアップ
+  hosts: nas_servers
+  become: yes
+
+  roles:
+    - role: hostname
+      tags: hostname
+
+    - role: zfs
+      tags: zfs
+
+    - role: samba
+      tags: samba
+
+    - role: avahi
+      tags: avahi
+
+    - role: msmtp
+      tags: msmtp
+
+    - role: zed
+      tags: zed

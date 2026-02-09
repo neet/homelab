@@ -1,0 +1,23 @@
+---
+- name: msmtpとbsd-mailxをインストール
+  ansible.builtin.apt:
+    name:
+      - msmtp
+      - msmtp-mta
+      - bsd-mailx
+    state: present
+    update_cache: yes
+
+- name: msmtp設定ファイルを配置
+  ansible.builtin.template:
+    src: msmtprc.j2
+    dest: /etc/msmtprc
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: msmtpdを有効化して起動
+  ansible.builtin.service:
+    name: msmtpd
+    state: started
+    enabled: yes

@@ -1,0 +1,16 @@
+# Set default values for all following accounts.
+defaults
+port {{ msmtp_port }}
+tls {{ msmtp_tls }}
+tls_trust_file {{ msmtp_tls_trust_file }}
+logfile {{ msmtp_logfile }}
+
+account {{ msmtp_default_account }}
+host {{ msmtp_smtp_host }}
+from {{ msmtp_from }}
+auth on
+user {{ msmtp_user }}
+password {{ msmtp_password }}
+
+# Set a default account
+account default : {{ msmtp_default_account }}

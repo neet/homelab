@@ -1,0 +1,12 @@
+---
+- name: avahi-daemonをインストール
+  ansible.builtin.apt:
+    name: avahi-daemon
+    state: present
+    update_cache: yes
+
+- name: avahi-daemonを有効化して起動
+  ansible.builtin.service:
+    name: avahi-daemon
+    state: started
+    enabled: yes

@@ -1,0 +1,5 @@
+---
+- name: ホスト名を設定
+  ansible.builtin.hostname:
+    name: "{{ nas_hostname }}"
+  notify: reboot required

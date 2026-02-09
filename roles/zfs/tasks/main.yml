@@ -1,0 +1,40 @@
+---
+- name: ZFSユーティリティをインストール
+  ansible.builtin.apt:
+    name: zfsutils-linux
+    state: present
+    update_cache: yes
+
+- name: ZFSプールの存在を確認
+  ansible.builtin.command: zpool list {{ zfs_pool_name }}
+  register: zpool_check
+  failed_when: false
+  changed_when: false
+
+- name: ZFSプールが存在しない場合は警告
+  ansible.builtin.debug:
+    msg: |
+      警告: ZFSプール '{{ zfs_pool_name }}' が見つかりません。
+      以下のコマンドでプールを手動で作成してください:
+      sudo zpool create {{ zfs_pool_name }} raidz1 /dev/disk/by-id/ディスク1 /dev/disk/by-id/ディスク2 /dev/disk/by-id/ディスク3
+  when: zpool_check.rc != 0
+
+- name: ZFSデータセットが存在するか確認
+  ansible.builtin.command: zfs list {{ zfs_pool_name }}/{{ zfs_dataset_name }}
+  register: dataset_check
+  failed_when: false
+  changed_when: false
+  when: zpool_check.rc == 0
+
+- name: ZFSデータセットを作成
+  ansible.builtin.command: zfs create {{ zfs_pool_name }}/{{ zfs_dataset_name }}
+  when:
+    - zpool_check.rc == 0
+    - dataset_check.rc != 0
+
+- name: ZFS共有ディレクトリの所有者を設定
+  ansible.builtin.file:
+    path: "{{ zfs_share_path }}"
+    owner: "{{ zfs_share_owner }}"
+    state: directory
+  when: zpool_check.rc == 0

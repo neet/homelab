@@ -1,0 +1,6 @@
+# Ansible
+*.retry
+group_vars/vault.yml
+
+# macOS
+.DS_Store

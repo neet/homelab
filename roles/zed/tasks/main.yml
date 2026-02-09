@@ -1,0 +1,33 @@
+---
+- name: ZED設定ファイルを確認
+  ansible.builtin.stat:
+    path: /etc/zfs/zed.d/zed.rc
+  register: zed_config
+
+- name: ZED設定ファイルをバックアップ
+  ansible.builtin.copy:
+    src: /etc/zfs/zed.d/zed.rc
+    dest: /etc/zfs/zed.d/zed.rc.backup
+    remote_src: yes
+    force: no
+  when: zed_config.stat.exists
+
+- name: ZED設定を更新（メールアドレス）
+  ansible.builtin.lineinfile:
+    path: /etc/zfs/zed.d/zed.rc
+    regexp: '^#?ZED_EMAIL_ADDR='
+    line: 'ZED_EMAIL_ADDR="{{ zed_email_addr }}"'
+  notify: restart zed
+
+- name: ZED設定を更新（通知の詳細度）
+  ansible.builtin.lineinfile:
+    path: /etc/zfs/zed.d/zed.rc
+    regexp: '^#?ZED_NOTIFY_VERBOSE='
+    line: 'ZED_NOTIFY_VERBOSE={{ zed_email_verbose }}'
+  notify: restart zed
+
+- name: ZEDを有効化して起動
+  ansible.builtin.service:
+    name: zed
+    state: started
+    enabled: yes

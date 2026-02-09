@@ -1,0 +1,31 @@
+---
+# ホスト設定
+nas_hostname: mitaka-storage-01
+
+# ZFS設定
+zfs_pool_name: tank
+zfs_dataset_name: share
+zfs_share_path: "/{{ zfs_pool_name }}/{{ zfs_dataset_name }}"
+zfs_share_owner: neet
+
+# Samba設定
+samba_share_name: sambashare
+samba_share_comment: "Samba on Ubuntu"
+samba_share_path: "{{ zfs_share_path }}"
+samba_user: neet
+# Sambaユーザーのパスワードはvault.ymlに記載
+
+# avahi設定（特に設定なし、インストールと有効化のみ）
+
+# msmtp設定
+msmtp_default_account: gmail
+msmtp_port: 587
+msmtp_tls: "on"
+msmtp_tls_trust_file: /etc/ssl/certs/ca-certificates.crt
+msmtp_logfile: ~/.msmtp.log
+msmtp_smtp_host: smtp.gmail.com
+# msmtp_from, msmtp_user, msmtp_password はvault.ymlに記載
+
+# ZED設定
+zed_email_verbose: 1
+# zed_email_addr はvault.ymlに記載
