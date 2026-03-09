@@ -28,7 +28,7 @@ sudo systemctl start nfs-kernel-server.service
 # /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 
-/srv/immich    compute-mitaka-01.local(rw,sync,no_subtree_check)
+/tank/immich    compute-mitaka-01.local(rw,sync,no_subtree_check)
 ```
 
 意味はこういう感じっぽい
@@ -42,7 +42,7 @@ sudo systemctl start nfs-kernel-server.service
 ディレクトリ作る
 
 ```
-sudo mkdir /srv/immich
+sudo mkdir /tank/immich
 ```
 
 適用
@@ -62,7 +62,7 @@ sudo apt install nfs-common
 fstabにこれを書く
 
 ```
-store-mitaka-01.local:/srv/immich       /mnt/immich     nfs
+store-mitaka-01.local:/tank/immich       /mnt/immich     nfs
 ```
 
 マウント
@@ -75,7 +75,7 @@ sudo mount -a
 いけた！
 
 ```
-root@store-mitaka-01:/home/neet# echo "hello world!" > /srv/immich/hello.txt
+root@store-mitaka-01:/home/neet# echo "hello world!" > /tank/immich/hello.txt
 neet@compute-mitaka-01:~$ cat /mnt/immich/hello.txt hello world!
 ```
 
