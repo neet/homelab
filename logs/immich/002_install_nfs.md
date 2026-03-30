@@ -62,7 +62,7 @@ sudo apt install nfs-common
 fstabにこれを書く
 
 ```
-store-mitaka-01.local:/tank/immich       /mnt/immich     nfs
+store-mitaka-01.local:/tank/immich	/mnt/immich	nfs	defaults,_netdev	0	0
 ```
 
 マウント
