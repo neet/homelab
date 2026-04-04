@@ -1,0 +1,37 @@
+- name: Ensure Samba is installed
+  become: yes
+  ansible.builtin.apt:
+    name: samba
+    update_cache: yes
+
+- name: Ensure the subdirectory for samba is present
+  become: yes
+  ansible.builtin.file:
+    path: "{{ samba_dir }}"
+    state: directory
+    owner: "{{ samba_user }}"
+
+- name: Ensure the subdirectory is configured in /etc/samba
+  become: yes
+  community.general.ini_file:
+    path: /etc/samba/smb.conf
+    section: sambashare
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - key: path
+      value: "{{ samba_dir }}"
+    - key: read only
+      value: "no"
+    - key: browsable
+      value: "yes"
+    - key: vfs objects
+      value: catia fruit streams_xattr
+  notify: smbd restart
+
+- name: Ensure the firewall allows samba
+  become: yes
+  community.general.ufw:
+    rule: allow
+    name: Samba
+
