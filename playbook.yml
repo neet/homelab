@@ -4,7 +4,11 @@
     - samba 
     - msmtp
     - zed
+    - nfs_server
 
 - hosts: compute
   roles:
     - avahi
+    - nfs_client
+    # - docker
+    - immich
