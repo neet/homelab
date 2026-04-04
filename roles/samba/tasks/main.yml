@@ -4,13 +4,6 @@
     name: samba
     update_cache: yes
 
-- name: Ensure the subdirectory for samba is present
-  become: yes
-  ansible.builtin.file:
-    path: "{{ samba_dir }}"
-    state: directory
-    owner: "{{ samba_user }}"
-
 - name: Ensure the subdirectory is configured in /etc/samba
   become: yes
   community.general.ini_file:
