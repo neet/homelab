@@ -1,0 +1,14 @@
+- name: Ensure avahi is installed
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+    name: avahi-daemon
+
+- name: Ensure avahi is enabled
+  become: yes
+  ansible.builtin.service:
+    name: avahi-daemon
+    enabled: yes 
+    state: started
+
+

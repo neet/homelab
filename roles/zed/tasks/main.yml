@@ -1,0 +1,18 @@
+- name: Ensure mail comand is available
+  become: yes 
+  ansible.builtin.apt:
+    update_cache: yes
+    name: bsd-mailx
+
+- name: Ensure zedrc is set
+  become: yes
+  lineinfile:
+    path: /etc/zfs/zed.d/zed.rc 
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}=\"{{ item.value }}\""
+  loop:
+    - key: ZED_EMAIL_ADDR
+      value: "{{ zed_email }}"
+    - key: ZED_NOTIFY_VERBOSE
+      value: "{{ zed_verbosity }}"
+  notify: restart zed

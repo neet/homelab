@@ -1,0 +1,6 @@
+- name: restart zed
+  become: yes
+  ansible.builtin.service:
+    name: zed
+    enabled: yes
+    state: restarted

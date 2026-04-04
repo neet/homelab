@@ -1,3 +1,10 @@
 - hosts: store
   roles:
+    - avahi
     - samba 
+    - msmtp
+    - zed
+
+- hosts: compute
+  roles:
+    - avahi
