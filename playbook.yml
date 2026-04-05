@@ -12,5 +12,6 @@
     - geerlingguy.docker
     - nfs_client
     - immich
+    - cloudflared
   # https://github.com/geerlingguy/ansible-role-docker/issues/490
   become: yes
