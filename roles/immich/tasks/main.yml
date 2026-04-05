@@ -1,7 +1,7 @@
 - name: Ensure Immich data directory is mounted
   ansible.posix.mount:
     src: store-mitaka-01.local:/tank/immich
-    path: {{ immich_upload_location }}
+    path: "{{ immich_upload_location }}"
     fstype: nfs
     opts: defaults,_netdev
     dump: 0
@@ -10,22 +10,14 @@
 
 - name: Ensure docker-compose is copied
   ansible.builtin.get_url:
-    url: https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
-    dest: /opt/docker-compose.yml
+    url: https://github.com/immich-app/immich/releases/download/v2.6.3/docker-compose.yml
+    dest: /opt/immich/docker-compose.yml
 
 - name: Ensure .env is updated
   ansible.builtin.template:
-    src: env.service.j2
-    dest: /opt/.env
+    src: .env.j2
+    dest: /opt/immich/.env
 
-- name: Ensure unit file is created
-  ansible.builtin.template:
-    src: immich.service.j2
-    dest: /etc/systemd/system/immich.service 
-  notify: reload daemon
-
-- name: Ensure immich is enabled
-  ansible.builtin.systemd_service:
-    name: immich
-    enabled: yes
-    state: started
+- name: Ensure docker compose is up
+  community.docker.docker_compose_v2:
+    project_src: /opt/immich

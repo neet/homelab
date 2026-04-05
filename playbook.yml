@@ -9,6 +9,8 @@
 - hosts: compute
   roles:
     - avahi
+    - geerlingguy.docker
     - nfs_client
-    # - docker
     - immich
+  # https://github.com/geerlingguy/ansible-role-docker/issues/490
+  become: yes
