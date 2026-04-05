@@ -4,7 +4,13 @@
     - samba 
     - msmtp
     - zed
+    - nfs_server
 
 - hosts: compute
   roles:
     - avahi
+    - geerlingguy.docker
+    - nfs_client
+    - immich
+  # https://github.com/geerlingguy/ansible-role-docker/issues/490
+  become: yes
