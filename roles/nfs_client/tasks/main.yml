@@ -1,6 +1,6 @@
+---
 - name: Ensure nfs-common is installed
-  become: yes
+  become: true
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name: nfs-common
-

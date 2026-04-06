@@ -1,3 +1,4 @@
-- name: reload exports
-  become: yes
+- name: Reload exports
+  become: true
+  changed_when: false
   ansible.builtin.command: exportfs -a

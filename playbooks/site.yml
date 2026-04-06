@@ -1,12 +1,14 @@
-- hosts: store
+- name: Data Store
+  hosts: store
   roles:
     - avahi
-    - samba 
+    - samba
     - msmtp
     - zed
     - nfs_server
 
-- hosts: compute
+- name: Hosting Immich + Gateway
+  hosts: compute
   roles:
     - avahi
     - geerlingguy.docker
@@ -14,4 +16,4 @@
     - immich
     - cloudflared
   # https://github.com/geerlingguy/ansible-role-docker/issues/490
-  become: yes
+  become: true

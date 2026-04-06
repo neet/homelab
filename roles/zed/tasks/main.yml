@@ -1,13 +1,14 @@
+---
 - name: Ensure mail comand is available
-  become: yes 
+  become: true
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name: bsd-mailx
 
 - name: Ensure zedrc is set
-  become: yes
-  lineinfile:
-    path: /etc/zfs/zed.d/zed.rc 
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/zfs/zed.d/zed.rc
     regexp: "^{{ item.key }}="
     line: "{{ item.key }}=\"{{ item.value }}\""
   loop:
