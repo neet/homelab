@@ -1,3 +1,4 @@
+---
 samba_dir: /tank/share
 samba_user: neet
 samba_password: "{{ vault_samba_password }}"

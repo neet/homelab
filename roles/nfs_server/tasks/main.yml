@@ -1,18 +1,20 @@
+---
 - name: Ensure nfs-kernel-server is installed
-  become: yes
+  become: true
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name: nfs-kernel-server
 
 - name: Ensure nfs-kernel-server is enabled
-  become: yes
+  become: true
   ansible.builtin.service:
     name: nfs-kernel-server.service
-    enabled: yes 
+    enabled: true
     state: started
 
 - name: Ensure /etc/exports is updated
   ansible.builtin.template:
     src: exports.j2
     dest: /etc/exports
+    mode: "0644"
   notify: reload exports

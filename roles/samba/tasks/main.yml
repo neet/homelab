@@ -1,13 +1,15 @@
+---
 - name: Ensure Samba is installed
-  become: yes
+  become: true
   ansible.builtin.apt:
     name: samba
-    update_cache: yes
+    update_cache: true
 
 - name: Ensure the subdirectory is configured in /etc/samba
-  become: yes
+  become: true
   community.general.ini_file:
     path: /etc/samba/smb.conf
+    mode: "0644"
     section: sambashare
     option: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -23,8 +25,7 @@
   notify: smbd restart
 
 - name: Ensure the firewall allows samba
-  become: yes
+  become: true
   community.general.ufw:
     rule: allow
     name: Samba
-

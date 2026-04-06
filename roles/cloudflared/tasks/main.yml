@@ -1,9 +1,10 @@
+---
 # roles/cloudflared/tasks/main.yml
 - name: Ensure GPG key is downloaded
   ansible.builtin.get_url:
     url: https://pkg.cloudflare.com/cloudflare-public-v2.gpg
     dest: /usr/share/keyrings/cloudflare-public-v2.gpg
-    mode: '0644'
+    mode: "0644"
 
 - name: Ensure apt respoitory is added
   ansible.builtin.apt_repository:
@@ -13,7 +14,7 @@
 - name: Ensure cloudflared is installed
   ansible.builtin.apt:
     name: cloudflared
-    update_cache: yes
+    update_cache: true
 
 - name: Install cloudflared service
   ansible.builtin.command:

@@ -1,21 +1,22 @@
+---
 - name: Ensure msmtp and related packages are installed
-  become: yes
+  become: true
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name:
       - msmtp
       - msmtp-mta
 
 - name: Ensure msmtp is updated
-  become: yes
+  become: true
   ansible.builtin.template:
     src: msmtprc.j2
     dest: /etc/msmtprc
+    mode: "0644"
 
 - name: Ensure msmtp is enabled
-  become: yes
+  become: true
   ansible.builtin.service:
     name: msmtpd
-    enabled: yes 
+    enabled: true
     state: started
-
