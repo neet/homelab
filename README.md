@@ -1,5 +1,7 @@
 # homelab
 
+[![CI](https://github.com/neet/homelab/actions/workflows/ci.yml/badge.svg)](https://github.com/neet/homelab/actions/workflows/ci.yml)
+
 Homelab setup of mine
 
 ## Install
