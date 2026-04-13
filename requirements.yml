@@ -1,2 +1,6 @@
 ---
-- name: geerlingguy.docker
+roles:
+  - name: geerlingguy.docker
+
+collections:
+  - name: community.elastic

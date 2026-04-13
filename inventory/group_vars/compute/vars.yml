@@ -1,2 +1,4 @@
 ---
 immich_upload_location: /mnt/immich
+
+elasticsearch_password: "{{ vault_elasticsearch_password }}"
