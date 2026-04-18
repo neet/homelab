@@ -1,0 +1,66 @@
+---
+- name: Download Python dependencies
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - python3-requests
+      - python3-elasticsearch
+
+- name: Download GPG key
+  become: true
+  ansible.builtin.get_url:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    dest: /tmp/elasticsearch.asc
+    mode: "0644"
+
+- name: Dearmor GPG key
+  become: true
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg /tmp/elasticsearch.asc
+    creates: /usr/share/keyrings/elasticsearch-keyring.gpg
+
+- name: Install apt-transport-https
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name: apt-transport-https
+
+- name: Add Elasticsearch repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/9.x/apt stable main"
+    filename: elastic-9.x
+
+- name: Install Elasticsearch
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name: elasticsearch
+
+- name: Install Kuromoji
+  become: true
+  community.general.elasticsearch_plugin:
+    name: analysis-kuromoji
+
+- name: Reset elastic user password to a specific value
+  become: true
+  changed_when: false
+  ansible.builtin.command:
+    cmd: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic -i -b"
+    stdin: "{{ elasticsearch_password }}\n{{ elasticsearch_password }}\n"
+
+- name: Disable HTTPS
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '^xpack\.security\.http\.ssl\.enabled:'
+    line: 'xpack.security.http.ssl.enabled: false'
+  notify: Restart elasticsearch
+
+- name: Start Elasticsearch
+  become: true
+  ansible.builtin.service:
+    name: elasticsearch
+    enabled: true
+    state: started

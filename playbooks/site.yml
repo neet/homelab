@@ -7,13 +7,14 @@
     - zed
     - nfs_server
 
-- name: Hosting Immich + Gateway
+- name: Hosting Immich + Elasticsearch + Gateway
   hosts: compute
   roles:
     - avahi
     - geerlingguy.docker
     - nfs_client
     - immich
+    - elasticsearch
     - cloudflared
   # https://github.com/geerlingguy/ansible-role-docker/issues/490
   become: true
