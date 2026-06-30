@@ -1,16 +1,19 @@
-- name: Data Store
-  hosts: store
+- name: Prepare shared settings
+  hosts: all
   roles:
     - avahi
+
+- name: Update store-mitaka-01
+  hosts: store-mitaka-01.local
+  roles:
     - samba
     - msmtp
     - zed
     - nfs_server
 
-- name: Hosting Immich + Elasticsearch + Gateway
-  hosts: compute
+- name: Update compute-mitaka-01
+  hosts: compute-mitaka-01.local
   roles:
-    - avahi
     - geerlingguy.docker
     - nfs_client
     - immich
@@ -18,3 +21,8 @@
     - cloudflared
   # https://github.com/geerlingguy/ansible-role-docker/issues/490
   become: true
+
+- name: Update compute-mitaka-02
+  hosts: compute-mitaka-02.local
+  roles:
+    - nfs_client
