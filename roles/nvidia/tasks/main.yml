@@ -1,0 +1,18 @@
+---
+- name: Ensure Linux Kernel headers are installed
+  become: true
+  ansible.builtin.apt:
+    name: linux-headers-7.0.0-27-generic
+
+- name: Ensure NVIDIA APT keyring is installed
+  become: true
+  ansible.builtin.apt:
+    deb: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2604/x86_64/cuda-keyring_1.1-1_all.deb
+
+- name: Ensure nvidia driver is installed
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - nvidia-driver-pinning-595.71.05
+      - libnvidia-compute
+      - nvidia-dkms-open

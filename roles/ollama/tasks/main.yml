@@ -1,0 +1,37 @@
+---
+- name: Ensure ollama is installed
+  become: true
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: https://ollama.com/download/ollama-linux-amd64.tar.zst
+    dest: /usr
+    creates: /usr/bin/ollama
+
+- name: Ensure ollama user group exists
+  become: true
+  ansible.builtin.group:
+    name: ollama
+
+- name: Ensure ollama user exists
+  become: true
+  ansible.builtin.user:
+    system: true
+    shell: /bin/false
+    home: /usr/share/ollama
+    name: ollama
+    group: ollama
+
+- name: Ensure ollama service is present
+  become: true
+  ansible.builtin.template:
+    src: ollama.service.j2
+    dest: /etc/systemd/system/ollama.service
+    mode: "0644"
+
+- name: Ensure ollama is enabled
+  become: true
+  ansible.builtin.service:
+    daemon-reload: true
+    name: ollama
+    enabled: true
+    state: started

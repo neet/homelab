@@ -10,7 +10,7 @@
 apt install linux-headers-$(uname -r)
 ```
 
-### NVIDIA の APT リポジトリを追加
+### NVIDIA の Keyring パッケージを追加
 
 ディストロ名は[Index of /compute/cuda/repos](https://developer.download.nvidia.com/compute/cuda/repos/)から確認した。
 

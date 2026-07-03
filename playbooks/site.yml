@@ -26,3 +26,9 @@
   hosts: compute-mitaka-02.local
   roles:
     - nfs_client
+    - nvidia
+    - ollama
+    - geerlingguy.docker
+    - open_webui
+    - caddy
+  become: true
