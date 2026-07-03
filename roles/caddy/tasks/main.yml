@@ -1,0 +1,45 @@
+- name: Ensure dependencies are installed
+  ansible.builtin.apt:
+    name:
+      - debian-keyring
+      - debian-archive-keyring
+      - apt-transport-https
+      - curl
+
+- name: Ensure PGP key dir is created
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Ensure GPG is placed # noqa risky-shell-pipe command-instead-of-module
+  ansible.builtin.shell:
+    cmd: curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+    creates: /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+
+- name: Ensure deb.txt is saved
+  ansible.builtin.get_url:
+    url: https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt
+    dest: /etc/apt/sources.list.d/caddy-stable.list
+    mode: o+r
+
+- name: Ensure caddy is installed
+  ansible.builtin.apt:
+    update_cache: true
+    name: caddy
+
+# FIXME: なぜか Caddy がないと open-webui のWebサーバーがkeep-aliveを処理できなくなる
+# 類似のバグ報告がまったく見つけられない
+- name: Ensure Caddyfile is updated
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+    mode: "0644"
+
+- name: Ensure caddy is restarted
+  become: true
+  ansible.builtin.service:
+    daemon-reload: true
+    name: caddy
+    enabled: true
+    state: restarted

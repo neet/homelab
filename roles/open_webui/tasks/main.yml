@@ -1,0 +1,14 @@
+---
+- name: Ensure open-webui service is present
+  become: true
+  ansible.builtin.template:
+    src: open-webui.service.j2
+    dest: /etc/systemd/system/open-webui.service
+    mode: "0644"
+
+- name: Ensure open-webui is enabled
+  become: true
+  ansible.builtin.service:
+    name: open-webui
+    enabled: true
+    state: started
