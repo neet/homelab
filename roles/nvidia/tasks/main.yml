@@ -16,3 +16,8 @@
       - nvidia-driver-pinning-595.71.05
       - libnvidia-compute
       - nvidia-dkms-open
+      # Docker から GPU を使うのに必要
+      - nvidia-container-toolkit
+      - nvidia-container-toolkit-base
+      - libnvidia-container-tools
+      - libnvidia-container1

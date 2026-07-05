@@ -27,8 +27,8 @@
   roles:
     - nfs_client
     - nvidia
-    - ollama
     - geerlingguy.docker
+    - club_3090
     - open_webui
     - caddy
   become: true
