@@ -1,0 +1,7 @@
+- name: Restart vLLM Docker Compose
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: /opt/club-3090/models/qwen3.6-27b/vllm/compose
+    files:
+      - dual/autoround-int4/fp8-mtp.yml
+    state: restarted

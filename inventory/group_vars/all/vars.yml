@@ -1,4 +1,8 @@
 ---
+immich_upload_location: /mnt/immich
+
+elasticsearch_password: "{{ vault_elasticsearch_password }}"
+
 samba_dir: /tank/share
 samba_user: neet
 samba_password: "{{ vault_samba_password }}"
@@ -10,3 +14,5 @@ msmtp_password: "{{ vault_msmtp_password }}"
 
 zed_email: n33t5hin@gmail.com
 zed_verbosity: "1"
+
+hf_token: "{{ vault_hf_token }}"
