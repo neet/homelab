@@ -27,11 +27,11 @@
     src: ollama.service.j2
     dest: /etc/systemd/system/ollama.service
     mode: "0644"
+  notify: Restart ollama
 
-- name: Ensure ollama is enabled
+- name: Ensure ollama is enabled and started
   become: true
   ansible.builtin.service:
-    daemon-reload: true
     name: ollama
     enabled: true
     state: started

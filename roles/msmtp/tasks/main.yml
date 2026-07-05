@@ -13,6 +13,7 @@
     src: msmtprc.j2
     dest: /etc/msmtprc
     mode: "0644"
+  notify: Restart msmtp
 
 - name: Ensure msmtp is enabled
   become: true
