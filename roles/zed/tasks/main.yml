@@ -16,4 +16,4 @@
       value: "{{ zed_email }}"
     - key: ZED_NOTIFY_VERBOSE
       value: "{{ zed_verbosity }}"
-  notify: restart zed
+  notify: Restart zed

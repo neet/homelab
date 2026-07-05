@@ -1,5 +1,4 @@
 ---
-# roles/cloudflared/tasks/main.yml
 - name: Ensure GPG key is downloaded
   ansible.builtin.get_url:
     url: https://pkg.cloudflare.com/cloudflare-public-v2.gpg
@@ -19,5 +18,4 @@
 - name: Install cloudflared service
   ansible.builtin.command:
     cmd: cloudflared service install {{ vault_cloudflared_token }}
-    # これでいいのかよくわかっていない
     creates: /etc/systemd/system/cloudflared.service

@@ -22,7 +22,7 @@
       value: "yes"
     - key: vfs objects
       value: catia fruit streams_xattr
-  notify: smbd restart
+  notify: Restart smbd
 
 - name: Ensure the firewall allows samba
   become: true

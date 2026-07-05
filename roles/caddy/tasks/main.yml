@@ -35,11 +35,11 @@
     src: Caddyfile.j2
     dest: /etc/caddy/Caddyfile
     mode: "0644"
+  notify: Restart Caddy
 
-- name: Ensure caddy is restarted
+- name: Ensure caddy is enabled and started
   become: true
   ansible.builtin.service:
-    daemon-reload: true
     name: caddy
     enabled: true
-    state: restarted
+    state: started

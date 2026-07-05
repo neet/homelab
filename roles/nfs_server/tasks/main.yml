@@ -17,4 +17,4 @@
     src: exports.j2
     dest: /etc/exports
     mode: "0644"
-  notify: reload exports
+  notify: Reload exports
