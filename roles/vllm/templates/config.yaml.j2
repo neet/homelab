@@ -20,8 +20,8 @@ max-num-seqs: 2
 enable-auto-tool-choice: true
 enable-chunked-prefill: true 
 enable-prefix-caching: true
-generation-config: vllm
 reasoning-parser: qwen3
 tool-call-parser: qwen3_coder
 speculative-config: '{"method":"mtp","num_speculative_tokens":3}'
+override-generation-config: '{"temperature":0.6,"top_p":0.95,"top_k":20,"min_p":0.0,"repetition_penalty":1.0}'
 trust-remote-code: true
