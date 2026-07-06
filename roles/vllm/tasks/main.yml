@@ -21,6 +21,14 @@
     mode: "0644"
   notify: Restart vLLM
 
+- name: Ensure chat template is present
+  become: true
+  ansible.builtin.get_url:
+    url: https://huggingface.co/froggeric/Qwen-Fixed-Chat-Templates/raw/b225c1d63f84c65af7dd6af2ba384eb037aa885e/chat_template.jinja
+    dest: /opt/vllm/chat_template.jinja
+    mode: "0644"
+  notify: Restart vLLM
+
 - name: Ensure vLLM is up
   become: true
   community.docker.docker_compose_v2:

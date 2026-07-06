@@ -8,10 +8,11 @@ services:
       - "HF_TOKEN={{ hf_token }}"
       - "VLLM_USE_FLASHINFER_SAMPLER=1"
     ports:
-      - "8000:8000"
+      - "127.0.0.1:18000:8000"
     ipc: host
     volumes:
       - "/opt/vllm/config.yaml:/root/config.yaml"
+      - "/opt/vllm/chat_template.jinja:/root/chat_template.jinja"
       - "/root/.cache/huggingface:/root/.cache/huggingface"
     command: Lorbus/Qwen3.6-27B-int4-AutoRound --config /root/config.yaml
 

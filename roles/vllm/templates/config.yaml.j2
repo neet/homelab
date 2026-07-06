@@ -6,6 +6,7 @@
 
 host: 0.0.0.0
 port: 8000
+served-model-name: qwen3.6-27b
 
 dtype: float16
 kv-cache-dtype: fp8_e5m2
@@ -24,4 +25,5 @@ reasoning-parser: qwen3
 tool-call-parser: qwen3_coder
 speculative-config: '{"method":"mtp","num_speculative_tokens":3}'
 override-generation-config: '{"temperature":0.6,"top_p":0.95,"top_k":20,"min_p":0.0,"repetition_penalty":1.0}'
+chat-template: /root/chat_template.jinja
 trust-remote-code: true
