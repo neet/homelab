@@ -1,0 +1,17 @@
+services:
+  vllm:
+    restart: always
+    image: vllm/vllm-openai:v0.24.0
+    runtime: nvidia
+    gpus: all
+    environment:
+      - "HF_TOKEN={{ hf_token }}"
+      - "VLLM_USE_FLASHINFER_SAMPLER=1"
+    ports:
+      - "8000:8000"
+    ipc: host
+    volumes:
+      - "/opt/vllm/config.yaml:/root/config.yaml"
+      - "/root/.cache/huggingface:/root/.cache/huggingface"
+    command: Lorbus/Qwen3.6-27B-int4-AutoRound --config /root/config.yaml
+

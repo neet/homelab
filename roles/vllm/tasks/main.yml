@@ -1,0 +1,27 @@
+---
+- name: Ensure vLLM directory is present
+  ansible.builtin.file:
+    path: /opt/vllm
+    state: directory
+    mode: '0755'
+
+- name: Ensure vLLM compose is present
+  become: true
+  ansible.builtin.template:
+    src: compose.yaml.j2
+    dest: /opt/vllm/compose.yaml
+    mode: "0644"
+  notify: Restart vLLM
+
+- name: Ensure vLLM config is present
+  become: true
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /opt/vllm/config.yaml
+    mode: "0644"
+  notify: Restart vLLM
+
+- name: Ensure vLLM is up
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: /opt/vllm
