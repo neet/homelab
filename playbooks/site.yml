@@ -28,7 +28,7 @@
     - nfs_client
     - nvidia
     - geerlingguy.docker
-    - club_3090
+    - vllm
     - open_webui
     - caddy
   become: true
