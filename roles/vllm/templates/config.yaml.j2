@@ -3,6 +3,9 @@
 #
 # And club-3090 for quantization:
 # https://github.com/noonghunna/club-3090/blob/master/models/qwen3.6-27b/vllm/compose/dual/autoround-int4/fp8-mtp.yml
+#
+# Refer to the vLLM recommended config as well:
+# https://recipes.vllm.ai/Qwen/Qwen3.6-27B
 
 host: 0.0.0.0
 port: 8000
@@ -26,4 +29,5 @@ tool-call-parser: qwen3_coder
 speculative-config: '{"method":"mtp","num_speculative_tokens":3}'
 override-generation-config: '{"temperature":0.6,"top_p":0.95,"top_k":20,"min_p":0.0,"repetition_penalty":1.0}'
 chat-template: /root/chat_template.jinja
+default-chat-template-kwargs: '{"enable_thinking": false}'
 trust-remote-code: true
