@@ -21,3 +21,19 @@
       - nvidia-container-toolkit-base
       - libnvidia-container-tools
       - libnvidia-container1
+
+- name: Set power limit to GPUs
+  become: true
+  ansible.builtin.template:
+    src: nvidia-power-limit.service.j2
+    dest: /etc/systemd/system/nvidia-power-limit.service
+    mode: "0644"
+  notify: Restart nvidia-power-limit
+
+- name: Ensure nvidia-power-limit is enabled
+  become: true
+  ansible.builtin.service:
+    name: nvidia-power-limit
+    enabled: true
+    state: started
+

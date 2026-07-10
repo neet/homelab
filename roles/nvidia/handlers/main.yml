@@ -1,0 +1,6 @@
+- name: Restart nvidia-power-limit
+  become: true
+  ansible.builtin.service:
+    daemon-reload: true
+    name: nvidia-power-limit
+    state: restarted

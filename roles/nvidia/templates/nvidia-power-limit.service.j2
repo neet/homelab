@@ -1,0 +1,10 @@
+# https://gist.github.com/jctosta/b968a6edc592ad7d06d9c91bd0796024
+[Unit]
+Description=Set NVIDIA GPU Power Limit
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nvidia-smi -pl 250
+
+[Install]
+WantedBy=multi-user.target
