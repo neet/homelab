@@ -36,4 +36,3 @@
     name: nvidia-power-limit
     enabled: true
     state: started
-
