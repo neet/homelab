@@ -14,5 +14,5 @@ services:
       - "/opt/vllm/config.yaml:/root/config.yaml"
       - "/opt/vllm/chat_template.jinja:/root/chat_template.jinja"
       - "/root/.cache/huggingface:/root/.cache/huggingface"
-    command: Lorbus/Qwen3.6-27B-int4-AutoRound --config /root/config.yaml
+    command: --config /root/config.yaml
 
