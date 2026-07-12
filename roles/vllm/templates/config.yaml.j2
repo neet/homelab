@@ -12,15 +12,12 @@ port: 8000
 served-model-name: qwen3.6-27b
 
 model: Lorbus/Qwen3.6-27B-int4-AutoRound
-dtype: float16
 kv-cache-dtype: fp8_e5m2
-quantization: auto_round
 
 tensor-parallel-size: 2
-gpu-memory-utilization: 0.92
-max-model-len: 262144
-max-num-batched-tokens: 8192
-max-num-seqs: 2
+max-model-len: 262144        # これって max_position_embeddings のことかなあ？
+max-num-batched-tokens: 8192 # これ要るのか…?
+max-num-seqs: 2              # これもよくわからん。テストがうんぬんとか書いてある。たぶん消してみてどう評価されるかを見るのがよさそう。
 
 enable-auto-tool-choice: true
 enable-chunked-prefill: true 
@@ -32,3 +29,7 @@ override-generation-config: '{"temperature":0.6,"top_p":0.95,"top_k":20,"min_p":
 chat-template: /root/chat_template.jinja
 default-chat-template-kwargs: '{"enable_thinking": false}'
 trust-remote-code: true
+
+# dtype: float16
+# quantization: auto_round
+# gpu-memory-utilization: 0.92
