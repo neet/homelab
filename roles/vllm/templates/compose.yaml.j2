@@ -12,7 +12,6 @@ services:
     ipc: host
     volumes:
       - "/opt/vllm/config.yaml:/root/config.yaml"
-      - "/opt/vllm/chat_template.jinja:/root/chat_template.jinja"
       - "/root/.cache/huggingface:/root/.cache/huggingface"
     command: --config /root/config.yaml
 

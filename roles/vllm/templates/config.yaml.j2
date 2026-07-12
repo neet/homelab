@@ -1,35 +1,20 @@
-# I borrowed the generation config from derekarmstrong.dev:
-# https://derekarmstrong.dev/blog/running-qwen36-27b-dual-rtx-3090-vllm-v019/#config-decisions-explained
-#
-# And club-3090 for quantization:
-# https://github.com/noonghunna/club-3090/blob/master/models/qwen3.6-27b/vllm/compose/dual/autoround-int4/fp8-mtp.yml
-#
-# Refer to the vLLM recommended config as well:
-# https://recipes.vllm.ai/Qwen/Qwen3.6-27B
-
 host: 0.0.0.0
 port: 8000
 served-model-name: qwen3.6-27b
 
-model: Lorbus/Qwen3.6-27B-int4-AutoRound
-kv-cache-dtype: fp8_e5m2
-
+model: Qwen/Qwen3.6-27B-FP8
 tensor-parallel-size: 2
-max-model-len: 262144        # これって max_position_embeddings のことかなあ？
-max-num-batched-tokens: 8192 # これ要るのか…?
-max-num-seqs: 2              # これもよくわからん。テストがうんぬんとか書いてある。たぶん消してみてどう評価されるかを見るのがよさそう。
 
+# club-3090から
+# https://github.com/noonghunna/club-3090/blob/master/models/qwen3.6-27b/vllm/compose/dual/fp8/mtp.yml
+# - max-num-seqs: 同時にさばけるリクエストの数
+# - kv-cache-dtype: kvキャッシュの型。自動で判定してくれなかった。
+max-num-seqs: 2
+kv-cache-dtype: fp8
+
+# 公式のモデルカードから
+# https://huggingface.co/Qwen/Qwen3.6-27B-FP8
 enable-auto-tool-choice: true
-enable-chunked-prefill: true 
-enable-prefix-caching: true
-reasoning-parser: qwen3
 tool-call-parser: qwen3_coder
-speculative-config: '{"method":"mtp","num_speculative_tokens":3}'
-override-generation-config: '{"temperature":0.6,"top_p":0.95,"top_k":20,"min_p":0.0,"repetition_penalty":1.0}'
-chat-template: /root/chat_template.jinja
-default-chat-template-kwargs: '{"enable_thinking": false}'
-trust-remote-code: true
-
-# dtype: float16
-# quantization: auto_round
-# gpu-memory-utilization: 0.92
+reasoning-parser: qwen3
+speculative-config: '{"method":"mtp","num_speculative_tokens":2}'
