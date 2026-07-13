@@ -1,0 +1,37 @@
+---
+- name: Ensure Librechat is cloned
+  become: true
+  ansible.builtin.git:
+    repo: https://github.com/danny-avila/LibreChat.git
+    dest: /opt/librechat
+    version: v0.8.7
+  notify: Restart Librechat
+
+- name: Ensure docker-compose.override.yml is updated
+  become: true
+  ansible.builtin.copy:
+    src: docker-compose.override.yml
+    dest: /opt/librechat/docker-compose.override.yml
+    mode: "0644"
+  notify: Restart Librechat
+
+- name: Ensure .env is updated
+  become: true
+  ansible.builtin.template:
+    src: .env.j2
+    dest: /opt/librechat/.env
+    mode: "0644"
+  notify: Restart Librechat
+
+- name: Ensure librechat.yaml is updated
+  become: true
+  ansible.builtin.copy:
+    src: librechat.yaml
+    dest: /opt/librechat/librechat.yaml
+    mode: "0644"
+  notify: Restart Librechat
+
+- name: Ensure Librechat is up
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: /opt/librechat

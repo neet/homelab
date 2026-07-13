@@ -1,6 +1,6 @@
 ---
-- name: Restart vLLM
+- name: Restart Librechat
   become: true
   community.docker.docker_compose_v2:
-    project_src: /opt/vllm
+    project_src: /opt/librechat
     state: restarted

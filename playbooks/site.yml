@@ -1,3 +1,4 @@
+---
 - name: Prepare shared settings
   hosts: all
   roles:
@@ -29,6 +30,6 @@
     - nvidia
     - geerlingguy.docker
     - vllm
-    - open_webui
+    - librechat
     - caddy
   become: true
