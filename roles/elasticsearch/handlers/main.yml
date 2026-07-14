@@ -1,3 +1,4 @@
+---
 - name: Restart elasticsearch
   become: true
   ansible.builtin.service:

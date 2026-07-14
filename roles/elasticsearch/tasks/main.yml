@@ -54,8 +54,8 @@
   become: true
   ansible.builtin.lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
-    regexp: '^xpack\.security\.http\.ssl\.enabled:'
-    line: 'xpack.security.http.ssl.enabled: false'
+    regexp: "^xpack\\.security\\.http\\.ssl\\.enabled:"
+    line: "xpack.security.http.ssl.enabled: false"
   notify: Restart elasticsearch
 
 - name: Start Elasticsearch

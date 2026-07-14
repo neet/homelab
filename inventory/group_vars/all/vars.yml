@@ -16,3 +16,5 @@ zed_email: n33t5hin@gmail.com
 zed_verbosity: "1"
 
 hf_token: "{{ vault_hf_token }}"
+
+librechat_session_secret: "{{ vault_librechat_session_secret }}"

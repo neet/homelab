@@ -1,3 +1,4 @@
+---
 - name: Restart msmtpd
   become: true
   ansible.builtin.service:

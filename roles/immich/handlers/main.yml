@@ -1,3 +1,4 @@
+---
 - name: Restart Docker Compose
   become: true
   community.docker.docker_compose_v2:

@@ -1,6 +1,0 @@
-- name: Restart open-webui
-  become: true
-  ansible.builtin.service:
-    daemon-reload: true
-    name: open-webui
-    state: restarted

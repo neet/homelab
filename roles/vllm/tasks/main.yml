@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: /opt/vllm
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Ensure vLLM compose is present
   become: true
