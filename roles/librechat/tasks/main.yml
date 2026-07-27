@@ -4,7 +4,7 @@
   ansible.builtin.git:
     repo: https://github.com/danny-avila/LibreChat.git
     dest: /opt/librechat
-    version: v0.8.7
+    version: "{{ librechat_version }}"
   notify: Restart Librechat
 
 - name: Ensure docker-compose.override.yml is updated

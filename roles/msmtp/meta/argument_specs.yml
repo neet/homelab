@@ -1,0 +1,20 @@
+argument_specs:
+  main:
+    description: msmtp をインストールするためのロール
+    options:
+      msmtp_host:
+        type: "str"
+        required: true
+        description: SMTPのホスト名
+      msmtp_from:
+        type: "str"
+        required: true
+        description: 送り主
+      msmtp_user:
+        type: "str"
+        required: true
+        description: SMTPのユーザー名
+      msmtp_password:
+        type: "str"
+        required: true
+        description: SMTPのパスワード

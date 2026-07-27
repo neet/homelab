@@ -1,21 +1,25 @@
 ---
 - name: Ensure GPG key is downloaded
+  become: true
   ansible.builtin.get_url:
     url: https://pkg.cloudflare.com/cloudflare-public-v2.gpg
     dest: /usr/share/keyrings/cloudflare-public-v2.gpg
     mode: "0644"
 
 - name: Ensure apt respoitory is added
+  become: true
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main"
     filename: cloudflared
 
 - name: Ensure cloudflared is installed
+  become: true
   ansible.builtin.apt:
     name: cloudflared
     update_cache: true
 
 - name: Install cloudflared service
+  become: true
   ansible.builtin.command:
-    cmd: cloudflared service install {{ vault_cloudflared_token }}
+    cmd: cloudflared service install {{ cloudflared_token }}
     creates: /etc/systemd/system/cloudflared.service

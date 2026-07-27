@@ -1,0 +1,8 @@
+:8000 {
+	reverse_proxy localhost:{{ vllm_port }}
+}
+
+:3080 {
+	reverse_proxy localhost:{{ librechat_port }}
+}
+

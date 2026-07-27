@@ -1,0 +1,19 @@
+---
+argument_specs:
+  main:
+    description: NFS のクライアントをインストールするためのロール
+    options:
+      nfs_client_mount:
+        description: NFSとしてマウントしたいエントリ
+        type: list
+        elements: dict
+        required: true
+        options:
+          src:
+            type: str
+            required: true
+            description: マウント元のエントリ名
+          path:
+            type: str
+            required: true
+            description: マウント先のパス

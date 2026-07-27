@@ -16,16 +16,21 @@
       - nvidia-driver-pinning-595.71.05
       - libnvidia-compute
       - nvidia-dkms-open
-      # Docker から GPU を使うのに必要
+
+- name: Ensure nvidia docker packages are installed
+  become: true
+  ansible.builtin.apt:
+    pkg:
       - nvidia-container-toolkit
       - nvidia-container-toolkit-base
       - libnvidia-container-tools
       - libnvidia-container1
+  when: nvidia_with_docker
 
 - name: Set power limit to GPUs
   become: true
-  ansible.builtin.template:
-    src: nvidia-power-limit.service.j2
+  ansible.builtin.copy:
+    src: nvidia-power-limit.service
     dest: /etc/systemd/system/nvidia-power-limit.service
     mode: "0644"
   notify: Restart nvidia-power-limit

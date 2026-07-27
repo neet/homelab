@@ -1,0 +1,14 @@
+---
+immich_version: v2.6.3
+immich_upload_location: /mnt/immich
+
+nfs_client_mount:
+  - src: /tank/immich
+    path: "{{ immich_upload_location }}"
+
+elasticsearch_plugins:
+  - analysis-kuromoji
+elasticsearch_password: "{{ vault_elasticsearch_password }}"
+elasticsearch_disable_https: true
+
+cloudflared_token: "{{ vault_cloudflared_token }}"

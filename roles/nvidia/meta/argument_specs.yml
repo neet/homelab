@@ -1,0 +1,7 @@
+argument_specs:
+  main:
+    description: NVIDIA ドライバをインストールするためのロール
+    options:
+      nvidia_with_docker:
+        type: "bool"
+        description: Docker 関係のドライバも入れる？

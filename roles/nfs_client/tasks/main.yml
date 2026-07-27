@@ -4,3 +4,16 @@
   ansible.builtin.apt:
     update_cache: true
     name: nfs-common
+
+- name: Ensure NFS directories are mounted
+  become: true
+  ansible.posix.mount:
+    # TODO: ホスト名のハードコードやめる
+    src: "store-mitaka-01.local:{{ item.src }}"
+    path: "{{ item.path }}"
+    fstype: nfs
+    opts: defaults,_netdev
+    dump: 0
+    passno: 0
+    state: mounted
+  loop: "{{ nfs_client_mount }}"

@@ -15,8 +15,8 @@
 
 - name: Ensure vLLM config is present
   become: true
-  ansible.builtin.template:
-    src: config.yaml.j2
+  ansible.builtin.copy:
+    src: config.yaml
     dest: /opt/vllm/config.yaml
     mode: "0644"
   notify: Restart vLLM

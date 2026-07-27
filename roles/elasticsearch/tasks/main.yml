@@ -41,7 +41,8 @@
 - name: Install Kuromoji
   become: true
   community.general.elasticsearch_plugin:
-    name: analysis-kuromoji
+    name: "{{ item }}"
+  loop: "{{ elasticsearch_plugins }}"
 
 - name: Reset elastic user password to a specific value
   become: true
@@ -57,6 +58,7 @@
     regexp: "^xpack\\.security\\.http\\.ssl\\.enabled:"
     line: "xpack.security.http.ssl.enabled: false"
   notify: Restart elasticsearch
+  when: elasticsearch_disable_https
 
 - name: Start Elasticsearch
   become: true
