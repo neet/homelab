@@ -40,7 +40,17 @@ EOF
 [iwd]# station wlan0 scan
 [iwd]# station wlan0 connect Neetlab-WPA3
 [iwd]# exit
-```
+# cat > /etc/systemd/network/25-wireless.network << EOF
+[Match]
+Name=wlan0
+
+[Network]
+DHCP=yes
+IgnoreCarrierLoss=3s
+EOF
+# systemctl restart systemd-networkd
+# systemctl restart systemd-resolved
+````
 
 ### ユーザを作成
 
@@ -51,3 +61,28 @@ EOF
 # passwd neet
 ```
 
+### sudo を入れる
+
+sudo-rs もあるけど Arch Wiki には sudo のほうが紹介されていたので。意識したことがなかったけど sudo ができるグループというものがあるらしくて、通常 wheel というグループを使うらしい。
+
+```
+# pacman -S sudo
+# gpasswd -a neet wheel
+# pacman -S vi
+# visudo
+```
+
+以下のように変更
+
+```diff
++ # %wheel ALL=(ALL:ALL) ALL
+- # %wheel ALL=(ALL:ALL) ALL
+```
+
+通常ユーザとして入る
+
+```
+$ sudo echo "hello"
+[sudo] password for neet:
+hello
+```
