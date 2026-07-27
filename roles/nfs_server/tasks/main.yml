@@ -13,8 +13,9 @@
     state: started
 
 - name: Ensure /etc/exports is updated
-  ansible.builtin.template:
-    src: exports.j2
+  become: true
+  ansible.builtin.copy:
+    src: exports
     dest: /etc/exports
     mode: "0644"
   notify: Reload exports

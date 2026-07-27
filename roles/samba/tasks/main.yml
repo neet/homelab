@@ -29,3 +29,6 @@
   community.general.ufw:
     rule: allow
     name: Samba
+
+# TODO: smbpasswdも自動化したい
+# https://gist.github.com/cmsj/5557c45ca5fa4779e81394105be204e1

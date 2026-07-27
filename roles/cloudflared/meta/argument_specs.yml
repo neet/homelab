@@ -1,0 +1,7 @@
+argument_specs:
+  main:
+    description: Cloudflaredをインストールするためのロール
+    options:
+      cloudflared_token:
+        type: "str"
+        description: Cloudflaredのトークン

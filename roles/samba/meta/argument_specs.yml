@@ -1,0 +1,8 @@
+argument_specs:
+  main:
+    description: Samba サーバをインストールするためのロール
+    options:
+      samba_dir:
+        type: "str"
+        required: true
+        description: Samba として共有するディレクトリ

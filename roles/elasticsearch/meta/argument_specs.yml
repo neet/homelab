@@ -1,0 +1,18 @@
+argument_specs:
+  main:
+    description: Elasticsearch をインストールするためのロール
+    options:
+      elasticsearch_password:
+        type: "str"
+        required: true
+        description: Elasticsearch 管理者のパスワード
+      elasticsearch_plugins:
+        type: "list"
+        elements: "str"
+        required: true
+        description: Elasticsearch に入れるプラグイン
+      elasticsearch_disable_https:
+        type: "list"
+        elements: "bool"
+        required: true
+        description: HTTPS を無効にするか？

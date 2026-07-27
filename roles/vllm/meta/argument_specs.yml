@@ -1,0 +1,12 @@
+argument_specs:
+  main:
+    description: vLLM をインストールするためのロール
+    options:
+      vllm_hf_token:
+        type: "str"
+        required: true
+        description: Hugging Face Hub のトークン
+      vllm_port:
+        type: "int"
+        required: true
+        description: vLLM で使うポート

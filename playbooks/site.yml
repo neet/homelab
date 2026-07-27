@@ -1,35 +1,84 @@
 ---
 - name: Prepare shared settings
   hosts: all
-  roles:
-    - avahi
+  tasks:
+    - name: Include avahi role
+      ansible.builtin.include_role:
+        name: avahi
 
 - name: Update store-mitaka-01
   hosts: store-mitaka-01.local
-  roles:
-    - samba
-    - msmtp
-    - zed
-    - nfs_server
+  tasks:
+    - name: Include Samba role
+      ansible.builtin.include_role:
+        name: samba
+
+    - name: Include msmtp role
+      ansible.builtin.include_role:
+        name: msmtp
+
+    - name: Include ZED role
+      ansible.builtin.include_role:
+        name: zed
+
+    - name: Include NFS role
+      ansible.builtin.include_role:
+        name: nfs_server
 
 - name: Update compute-mitaka-01
   hosts: compute-mitaka-01.local
-  roles:
-    - geerlingguy.docker
-    - nfs_client
-    - immich
-    - elasticsearch
-    - cloudflared
-  # https://github.com/geerlingguy/ansible-role-docker/issues/490
-  become: true
+  tasks:
+    - name: Include Docker role
+      ansible.builtin.include_role:
+        name: geerlingguy.docker
+        apply:
+          become: true
+
+    - name: Include NFS role
+      ansible.builtin.include_role:
+        name: nfs_client
+
+    - name: Include Immich role
+      ansible.builtin.include_role:
+        name: immich
+
+    - name: Include Elasticsearch role
+      ansible.builtin.include_role:
+        name: elasticsearch
+
+    - name: Include Cloudflared role
+      ansible.builtin.include_role:
+        name: cloudflared
 
 - name: Update compute-mitaka-02
   hosts: compute-mitaka-02.local
-  roles:
-    - nfs_client
-    - nvidia
-    - geerlingguy.docker
-    - vllm
-    - librechat
-    - caddy
-  become: true
+  tasks:
+    - name: Include Nvidia role
+      ansible.builtin.include_role:
+        name: nvidia
+
+    - name: Include Docker role
+      ansible.builtin.include_role:
+        name: geerlingguy.docker
+        apply:
+          become: true
+
+    - name: Include vLLM role
+      ansible.builtin.include_role:
+        name: vllm
+
+    - name: Include Librechat role
+      ansible.builtin.include_role:
+        name: librechat
+
+    - name: Include Caddy role
+      ansible.builtin.include_role:
+        name: caddy
+
+    - name: Ensure Caddyfile is updated
+      become: true
+      ansible.builtin.template:
+        src: Caddyfile.j2
+        dest: /etc/caddy/Caddyfile
+        mode: "0644"
+      notify: Restart Caddy

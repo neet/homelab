@@ -1,0 +1,12 @@
+argument_specs:
+  main:
+    description: ZED をインストールするためのロール
+    options:
+      zed_email:
+        type: "str"
+        required: true
+        description: ZED で使う Email アドレス
+      zed_verbosity:
+        type: "str"
+        required: true
+        description: ZED の通知の冗長性

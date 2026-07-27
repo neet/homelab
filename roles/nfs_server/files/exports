@@ -9,3 +9,4 @@
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 
 /tank/immich    compute-mitaka-01.local(rw,sync,no_subtree_check,no_root_squash)
+# TODO: ホスト名のハードコードやめる

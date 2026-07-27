@@ -1,0 +1,10 @@
+---
+samba_dir: /tank/share
+
+msmtp_host: smtp.gmail.com
+msmtp_from: n33t5hin@gmail.com
+msmtp_user: n33t5hin@gmail.com
+msmtp_password: "{{ vault_msmtp_password }}"
+
+zed_email: n33t5hin@gmail.com
+zed_verbosity: "1"

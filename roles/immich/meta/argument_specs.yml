@@ -1,0 +1,10 @@
+argument_specs:
+  main:
+    description: Immichをインストールするためのロール
+    options:
+      immich_version:
+        type: "str"
+        description: Immichのバージョン
+      immich_upload_location:
+        type: "str"
+        description: Immichをアップロードするpath

@@ -1,0 +1,16 @@
+argument_specs:
+  main:
+    description: LibreChat をインストールするためのロール
+    options:
+      librechat_version:
+        type: "str"
+        required: true
+        description: LibreChat のバージョン
+      librechat_port:
+        type: "int"
+        required: true
+        description: LibreChat で使うポート
+      librechat_session_secret:
+        type: "str"
+        required: true
+        description: LibreChat のシークレット
