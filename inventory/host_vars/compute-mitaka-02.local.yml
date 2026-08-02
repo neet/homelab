@@ -7,3 +7,5 @@ vllm_hf_token: "{{ vault_hf_token }}"
 librechat_version: v0.8.7
 librechat_port: 13080
 librechat_session_secret: "{{ vault_librechat_session_secret }}"
+
+tavily_api_key: "{{ vault_tavily_api_key }}"
