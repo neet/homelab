@@ -1,8 +1,8 @@
 host: 0.0.0.0
 port: 8000
-served-model-name: qwen3.6-27b
+served-model-name: Qwen3.6-27B-FP8
 
-model: Qwen/Qwen3.6-27B-FP8
+model: kasimat/Qwen3.6-27B-AEON-Ultimate-Uncensored-FP8-MTP
 tensor-parallel-size: 2
 
 # club-3090から
