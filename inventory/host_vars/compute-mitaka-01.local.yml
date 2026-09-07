@@ -8,7 +8,6 @@ nfs_client_mount:
 
 elasticsearch_plugins:
   - analysis-kuromoji
-  - analysis-icu
 elasticsearch_password: "{{ vault_elasticsearch_password }}"
 elasticsearch_disable_https: true
 

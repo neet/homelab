@@ -38,12 +38,11 @@
     update_cache: true
     name: elasticsearch
 
-- name: Install Elasticsearch plugins
+- name: Install Kuromoji
   become: true
   community.general.elasticsearch_plugin:
     name: "{{ item }}"
   loop: "{{ elasticsearch_plugins }}"
-  notify: Restart elasticsearch
 
 - name: Reset elastic user password to a specific value
   become: true
