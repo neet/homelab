@@ -5,16 +5,11 @@ served-model-name: Qwen3.8-27B-FP8
 model: orcarouter/Qwen3.8-27B-Uncensored-FP8
 tensor-parallel-size: 2
 
-# club-3090から
-# https://github.com/noonghunna/club-3090/blob/master/models/qwen3.6-27b/vllm/compose/dual/fp8/mtp.yml
-# - max-num-seqs: 同時にさばけるリクエストの数
-# - kv-cache-dtype: kvキャッシュの型。自動で判定してくれなかった。
+# https://huggingface.co/orcarouter/Qwen3.8-27B-Uncensored-FP8#self-host-with-vllm-openai-compatible
+language-model-only: true
 max-num-seqs: 2
 kv-cache-dtype: fp8
-
-# 公式のモデルカードから
-# https://huggingface.co/Qwen/Qwen3.6-27B-FP8
 enable-auto-tool-choice: true
 tool-call-parser: qwen3_coder
 reasoning-parser: qwen3
-speculative-config: '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
+speculative-config: '{"method":"mtp","num_speculative_tokens":3}'
