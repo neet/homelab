@@ -1,0 +1,32 @@
+---
+- name: Ensure OpenHands directory is present
+  become: true
+  ansible.builtin.file:
+    path: /opt/openhands/.openhands
+    state: directory
+    mode: "0777"
+
+- name: Ensure OpenHands projects directory is present
+  become: true
+  ansible.builtin.file:
+    path: /opt/openhands/projects
+    state: directory
+    mode: "0777"
+
+# https://docs.openhands.dev/openhands/usage/agent-canvas/backend-setup/docker
+- name: Ensure OpenHands container is up
+  become: true
+  community.docker.docker_container:
+    name: openhands
+    image: ghcr.io/openhands/agent-canvas:latest
+    ports:
+      - "{{ openhands_port }}:8000"
+    etc_hosts:
+      host.docker.internal: host-gateway
+    volumes:
+      - /opt/openhands/.openhands:/home/openhands/.openhands
+      - /opt/openhands/projects:/projects
+    privileged: true
+    env:
+      AGENT_CANVAS_DISABLE_TELEMETRY: "true"
+

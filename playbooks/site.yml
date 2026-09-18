@@ -71,6 +71,10 @@
       ansible.builtin.include_role:
         name: librechat
 
+    - name: Include OpenHands role
+      ansible.builtin.include_role:
+        name: openhands
+
     - name: Include Caddy role
       ansible.builtin.include_role:
         name: caddy
